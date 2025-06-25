@@ -94,5 +94,11 @@ The following is a step-by-step overview of our scenario aligned with the NIST 8
 
 ---
 
-### ✅ Outcome
-This incident was detected and mitigated before any compromise occurred. The investigation followed structured incident response procedures, leveraging Microsoft Sentinel, Defender for Endpoint, and best practices from MITRE ATT&CK and NIST 800-61.
+📝 Note: This incident was detected and mitigated before any compromise occurred. The investigation followed structured incident response procedures, leveraging Microsoft Sentinel, Defender for Endpoint, and best practices from MITRE ATT&CK and NIST 800-61.
+
+## Created By:
+- **Author Name**: Tinan Makadjibeye  
+- **Author Contact**: [LinkedIn profile](https://www.linkedin.com/in/makadjibeye-tinan)  
+- **Date**: June 2025
+  
+---
