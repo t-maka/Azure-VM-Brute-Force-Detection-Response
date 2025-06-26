@@ -16,7 +16,7 @@ Apply the **NIST SP 800-61 (Rev. 2) Incident Response Framework** alongside rele
 ## 📊 Timeline Summary & Findings 
 
 
-### 🔔 Part 1: Detection — Brute-Force Attempt Alert Rule
+### 🔔 Part 1: Preparation — Brute-Force Attempt Alert Rule
 
 Analyzed `LogonFailed` events from the `DeviceLogonEvents` table over a 5-hour period to detect brute-force attempts:
 
@@ -31,7 +31,7 @@ DeviceLogonEvents
 
 ---
 
-### 🚨 Part 2: Alert & Incident Generation
+### 🚨 Part 2: Detection — Alert & Incident Generation
 A custom analytics rule was created in Microsoft Sentinel.
 - Once triggered, it:
   - Generated an alert
@@ -43,7 +43,7 @@ A custom analytics rule was created in Microsoft Sentinel.
 
 ---
 
-### 🔍 Part 3: Investigation
+### 🔍 Part 3: Analysis
 Validated that none of the brute-force attempts led to successful logins:
 
 ```kql
@@ -59,29 +59,19 @@ DeviceLogonEvents
 
 ---
 
-### 🛡️ Part 4: Containment & Mitigation
+### 🛡️ Part 4: Containment, Eradication & Recovery
 - ✅ Isolated all 9 affected VMs using Microsoft Defender for Endpoint (MDE)
 - ✅ Initiated anti-malware scans on all VMs
 - ✅ Updated NSG rules to:
   - Block all RDP from public internet
   - Allow RDP access only from trusted IP address
+- ✅ Removed isolation from affected VMs after confirming they showed no signs of compromise.
+
+ ---
+ 
+### 🧯  Part 5: Lessons Learned
 📌 Policy recommendation:
 - Restrict RDP on all VMs going forward or use Azure Bastion
----
-
-### 🔁 NIST 800-61 Incident Response Lifecycle (Step-by-Step)
-
-The following is a step-by-step overview of our scenario aligned with the NIST 800-61 Incident Response Lifecycle.
-
-| NIST Phase             | Action                                                         | Tools Used                         | MITRE ATT\&CK Mapping                      |
-| ---------------------- | -------------------------------------------------------------- | ---------------------------------- | ------------------------------------------ |
-| **1. Preparation**     | Harden NSGs; recommend restricted RDP policies                 | Azure NSG, Azure Policy            | N/A                                        |
-| **2. Detection**       | Query failed logons to identify brute-force attempts           | Sentinel, KQL, DeviceLogonEvents   | `T1110`, `T1110.001`, `T1110.003`          |
-| **3. Analysis**        | Investigate alerts and verify absence of successful logons     | Sentinel, KQL, Investigation Graph | `TA0006 – Credential Access`               |
-| **4. Containment**     | Isolate infected VMs and block attacker access                 | MDE Isolation, NSG reconfiguration | `TA0001 – Initial Access (mitigated)`      |
-| **5. Eradication**     | Run malware scans across all VMs                               | Microsoft Defender Antivirus       | `T1059`, `T1027` (if persistence is found) |
-| **6. Recovery**        | Restore access via secure channels (e.g., trusted IP, Bastion) | Azure NSG, Bastion (optional)      | N/A                                        |
-| **7. Lessons Learned** | Document response, refine detection rules, enforce RDP policy  | Policy-as-Code                     | N/A                                        |
 
 ---
 
