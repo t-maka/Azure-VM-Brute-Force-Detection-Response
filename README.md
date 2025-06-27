@@ -38,9 +38,6 @@ A custom analytics rule was created in Microsoft Sentinel.
   - Created an incident
   - Produced an automated investigation graph
     
- ![MS Sentinel one inceident investigation](https://github.com/user-attachments/assets/69a35c17-9710-4219-911a-8f6aed30b70b)
-
-
 ---
 
 ### 🔍 Part 3: Analysis
